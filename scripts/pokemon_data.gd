@@ -1,7 +1,5 @@
 extends Node
 
-# Rules: always keep a single type for move and pokemon, the primary one
-
 enum TYPES {
 	NORMAL,
 	FIRE,

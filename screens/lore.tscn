@@ -1,0 +1,105 @@
+[gd_scene load_steps=5 format=3 uid="uid://bbnks4n0qux08"]
+
+[ext_resource type="Script" uid="uid://c1r3c7sckydjr" path="res://scripts/lore_controller.gd" id="1_din1n"]
+[ext_resource type="Texture2D" uid="uid://bhyyavkylt3nf" path="res://assets/lore_bg.jpeg" id="1_psjci"]
+[ext_resource type="FontFile" uid="uid://b2r02ranjx5vy" path="res://fonts/Tiny5-Regular.ttf" id="3_jhcku"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_din1n"]
+texture = ExtResource("1_psjci")
+
+[node name="Lore" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_din1n")
+
+[node name="Bg" type="Panel" parent="."]
+modulate = Color(0.3, 0.3, 0.3, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_din1n")
+
+[node name="LoreText" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 40.0
+offset_bottom = -145.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("3_jhcku")
+theme_override_font_sizes/normal_font_size = 35
+text = "After defeating Red in the final battle on  Mt. Silver
+
+The weather turns colder than it has ever been.
+
+Your Pokemon faint one by one as you tremble,
+
+Unable to do anything to prevent their fall.
+
+No escape rope, no useful item to give you warmth.
+
+You start to loose consciousness and fall into a slumber.
+
+You recall the day when you chose your first Pokemon,
+
+All the battles you fought to level up.
+
+But what use is it now . . . . . . . . . . . . .
+
+
+
+As darkness consumes you, you find yourself in a strange realm,
+
+A place with twisted rules,
+
+Where you have to fight not for badges, but for survival,
+
+Where every victory might bring you closer to escape
+
+And defeat brings you death.
+
+This is the Infinity League,
+
+A tournament with no end, no mercy, and minimal chances of escape
+
+Can you conquer the Infinity League and find your way back home?
+
+Or will you become just another lost soul in this eternal tournament?
+
+The choice is yours, Trainer."
+scroll_following = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -134.0
+offset_top = -107.0
+offset_right = 134.0
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 0
+focus_mode = 0
+theme_override_colors/font_hover_color = Color(0.695543, 0.986256, 0.55273, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.787031, 0.26271, 0.302501, 1)
+theme_override_fonts/font = ExtResource("3_jhcku")
+theme_override_font_sizes/font_size = 40
+text = "CONTINUE"
+flat = true
+
+[connection signal="button_up" from="Button" to="." method="_on_button_button_up"]

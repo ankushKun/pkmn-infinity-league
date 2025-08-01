@@ -1,11 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://dvq410jrv1uxu"]
+[gd_scene load_steps=6 format=3 uid="uid://dvq410jrv1uxu"]
 
 [ext_resource type="Script" uid="uid://bjvlcg8prhymc" path="res://scripts/menu.gd" id="1_6b72x"]
 [ext_resource type="Texture2D" uid="uid://dq2h38bwyyxhj" path="res://sprites/poke-ball.png" id="2_0vcwn"]
 [ext_resource type="Texture2D" uid="uid://r7vbtjl6jqwy" path="res://assets/bg.png" id="2_6b72x"]
 [ext_resource type="FontFile" uid="uid://b2r02ranjx5vy" path="res://fonts/Tiny5-Regular.ttf" id="2_6flog"]
-[ext_resource type="Texture2D" path="res://sprites/pokemon/front/152.png" id="5_la406"]
-[ext_resource type="Texture2D" path="res://sprites/pokemon/front/129.png" id="6_ee7ou"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6flog"]
 texture = ExtResource("2_6b72x")
@@ -77,7 +75,6 @@ offset_right = -219.0
 offset_bottom = -52.0
 grow_horizontal = 0
 grow_vertical = 0
-texture = ExtResource("5_la406")
 
 [node name="StarterName" type="Label" parent="."]
 layout_mode = 1
@@ -192,7 +189,6 @@ offset_top = 109.0
 offset_right = -318.0
 offset_bottom = 329.0
 grow_horizontal = 0
-texture = ExtResource("6_ee7ou")
 expand_mode = 2
 stretch_mode = 6
 

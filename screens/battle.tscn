@@ -1,0 +1,306 @@
+[gd_scene load_steps=14 format=3 uid="uid://d3ax0rltdokfl"]
+
+[ext_resource type="Script" uid="uid://emf34jxsr4gd" path="res://scripts/battle_manager.gd" id="1_7sayv"]
+[ext_resource type="Texture2D" uid="uid://ckwubj3wlxcui" path="res://assets/battle_bg.png" id="2_h4lnp"]
+[ext_resource type="Texture2D" uid="uid://2s44ie4ayudn" path="res://sprites/placeholders/6.png" id="3_0q410"]
+[ext_resource type="Texture2D" uid="uid://c36cstbtsjml4" path="res://sprites/placeholders/25.png" id="4_i8oke"]
+[ext_resource type="FontFile" uid="uid://b2r02ranjx5vy" path="res://fonts/Tiny5-Regular.ttf" id="5_i8oke"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7sayv"]
+texture = ExtResource("2_h4lnp")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2xoce"]
+bg_color = Color(0.13, 0.13, 0.13, 0.960784)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_of853"]
+bg_color = Color(0.13, 0.13, 0.13, 0.870588)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i8oke"]
+bg_color = Color(0.15, 0.15, 0.15, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rdcom"]
+bg_color = Color(0.312967, 0.82, 0.246, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ga2ow"]
+bg_color = Color(0.13, 0.13, 0.13, 0.870588)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_itvv8"]
+bg_color = Color(0.14902, 0.14902, 0.14902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ijmtw"]
+bg_color = Color(0.313726, 0.819608, 0.247059, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Battle" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7sayv")
+
+[node name="Bg" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -89.0
+offset_top = -99.0
+offset_right = 89.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_7sayv")
+
+[node name="Enemy" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -593.0
+offset_top = -31.0
+offset_right = -139.0
+offset_bottom = 423.0
+grow_horizontal = 0
+texture = ExtResource("3_0q410")
+
+[node name="Player" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 110.0
+offset_top = -474.0
+offset_right = 544.0
+offset_bottom = -40.0
+grow_vertical = 0
+texture = ExtResource("4_i8oke")
+
+[node name="Menu" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -149.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_2xoce")
+
+[node name="Status" type="RichTextLabel" parent="Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 10.0
+offset_right = -541.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("5_i8oke")
+theme_override_font_sizes/normal_font_size = 40
+text = "What will you do?"
+
+[node name="Moves" type="GridContainer" parent="Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 632.0
+offset_top = 9.0
+offset_right = -10.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="1" type="Button" parent="Menu/Moves"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+theme_override_fonts/font = ExtResource("5_i8oke")
+theme_override_font_sizes/font_size = 35
+text = "ATTACK"
+
+[node name="2" type="Button" parent="Menu/Moves"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+theme_override_fonts/font = ExtResource("5_i8oke")
+theme_override_font_sizes/font_size = 35
+text = "ATTACK"
+
+[node name="3" type="Button" parent="Menu/Moves"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+theme_override_fonts/font = ExtResource("5_i8oke")
+theme_override_font_sizes/font_size = 35
+text = "ATTACK"
+
+[node name="4" type="Button" parent="Menu/Moves"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+theme_override_fonts/font = ExtResource("5_i8oke")
+theme_override_font_sizes/font_size = 35
+text = "ATTACK"
+
+[node name="EnemyInfo" type="Panel" parent="."]
+layout_mode = 1
+offset_left = 127.0
+offset_top = 70.0
+offset_right = 527.0
+offset_bottom = 151.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_of853")
+
+[node name="name" type="Label" parent="EnemyInfo"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 13.0
+offset_top = 4.0
+offset_right = -6.0
+offset_bottom = 50.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("5_i8oke")
+theme_override_font_sizes/font_size = 35
+text = "POKEMON"
+
+[node name="hpbar" type="ProgressBar" parent="EnemyInfo"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 73.0
+offset_top = -25.0
+offset_right = -14.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_i8oke")
+theme_override_styles/fill = SubResource("StyleBoxFlat_rdcom")
+max_value = 10.0
+step = 1.0
+value = 5.0
+rounded = true
+show_percentage = false
+
+[node name="PlayerInfo" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -470.0
+offset_top = -258.5
+offset_right = -70.0
+offset_bottom = -148.5
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ga2ow")
+
+[node name="name" type="Label" parent="PlayerInfo"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 13.0
+offset_top = 5.0
+offset_right = -6.0
+offset_bottom = 51.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("5_i8oke")
+theme_override_font_sizes/font_size = 35
+text = "POKEMON"
+
+[node name="hpbar" type="ProgressBar" parent="PlayerInfo"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 58.0
+offset_top = -53.0
+offset_right = -14.0
+offset_bottom = -44.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_itvv8")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ijmtw")
+max_value = 10.0
+step = 1.0
+value = 5.0
+show_percentage = false
+
+[node name="hp" type="Label" parent="PlayerInfo"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -172.0
+offset_top = -45.0
+offset_right = -14.0
+offset_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("5_i8oke")
+theme_override_font_sizes/font_size = 30
+text = "20 / 40"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[connection signal="button_up" from="Menu/Moves/1" to="." method="use_move_1"]
+[connection signal="button_up" from="Menu/Moves/2" to="." method="use_move_2"]
+[connection signal="button_up" from="Menu/Moves/3" to="." method="use_move_3"]
+[connection signal="button_up" from="Menu/Moves/4" to="." method="use_move_4"]

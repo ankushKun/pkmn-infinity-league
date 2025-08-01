@@ -1,20 +1,21 @@
 extends Node
 class_name SpriteSheetManager
 
-# Sprite sheet textures
-var normal_front_sheet: Texture2D
-var normal_back_sheet: Texture2D
-var shiny_front_sheet: Texture2D
-var shiny_back_sheet: Texture2D
-
-# Metadata for sprite positions
-var normal_front_metadata: Dictionary
-var normal_back_metadata: Dictionary
-var shiny_front_metadata: Dictionary
-var shiny_back_metadata: Dictionary
-
 # Sprite size (96x96 for Pokemon sprites)
 var sprite_size: int = 96
+
+# Metadata for sprite images
+var normal_front_sheet: Texture2D = preload("res://sprites/pokemon_normal_front_sheet.png")
+var normal_back_sheet: Texture2D = preload("res://sprites/pokemon_normal_back_sheet.png")
+var shiny_front_sheet: Texture2D = preload("res://sprites/pokemon_shiny_front_sheet.png")
+var shiny_back_sheet: Texture2D = preload("res://sprites/pokemon_shiny_back_sheet.png")
+
+# Metadata for sprite positions
+var normal_front_metadata
+var normal_back_metadata
+var shiny_front_metadata
+var shiny_back_metadata
+
 
 func _ready():
 	load_sprite_sheets()
@@ -22,12 +23,7 @@ func _ready():
 func load_sprite_sheets():
 	"""Load all sprite sheets and metadata."""
 	# Load normal front sprites
-	var normal_front_sheet_path = "res://sprites/pokemon_normal_front_sheet.png"
 	var normal_front_metadata_path = "res://sprites/pokemon_normal_front_sheet_metadata.json"
-	
-	if FileAccess.file_exists(normal_front_sheet_path):
-		normal_front_sheet = load(normal_front_sheet_path)
-		print("Loaded normal front sprite sheet")
 	
 	if FileAccess.file_exists(normal_front_metadata_path):
 		var file = FileAccess.open(normal_front_metadata_path, FileAccess.READ)
@@ -35,14 +31,10 @@ func load_sprite_sheets():
 		normal_front_metadata = JSON.parse_string(json_string)
 		file.close()
 		print("Loaded normal front metadata")
+	# print(normal_front_metadata)
 	
 	# Load normal back sprites
-	var normal_back_sheet_path = "res://sprites/pokemon_normal_back_sheet.png"
 	var normal_back_metadata_path = "res://sprites/pokemon_normal_back_sheet_metadata.json"
-	
-	if FileAccess.file_exists(normal_back_sheet_path):
-		normal_back_sheet = load(normal_back_sheet_path)
-		print("Loaded normal back sprite sheet")
 	
 	if FileAccess.file_exists(normal_back_metadata_path):
 		var file = FileAccess.open(normal_back_metadata_path, FileAccess.READ)
@@ -52,12 +44,7 @@ func load_sprite_sheets():
 		print("Loaded normal back metadata")
 	
 	# Load shiny front sprites
-	var shiny_front_sheet_path = "res://sprites/pokemon_shiny_front_sheet.png"
 	var shiny_front_metadata_path = "res://sprites/pokemon_shiny_front_sheet_metadata.json"
-	
-	if FileAccess.file_exists(shiny_front_sheet_path):
-		shiny_front_sheet = load(shiny_front_sheet_path)
-		print("Loaded shiny front sprite sheet")
 	
 	if FileAccess.file_exists(shiny_front_metadata_path):
 		var file = FileAccess.open(shiny_front_metadata_path, FileAccess.READ)
@@ -67,12 +54,7 @@ func load_sprite_sheets():
 		print("Loaded shiny front metadata")
 	
 	# Load shiny back sprites
-	var shiny_back_sheet_path = "res://sprites/pokemon_shiny_back_sheet.png"
 	var shiny_back_metadata_path = "res://sprites/pokemon_shiny_back_sheet_metadata.json"
-	
-	if FileAccess.file_exists(shiny_back_sheet_path):
-		shiny_back_sheet = load(shiny_back_sheet_path)
-		print("Loaded shiny back sprite sheet")
 	
 	if FileAccess.file_exists(shiny_back_metadata_path):
 		var file = FileAccess.open(shiny_back_metadata_path, FileAccess.READ)

@@ -95,24 +95,27 @@ func on_select():
 	$StarterPreview.texture = pokemon.texture.front
 	$StarterName.text = pokemon.name
 	
-	var moves = pokemon.moves
-	for move in moves:
-		print(move.name)
+	chikorita_button.disabled = false
+	cyndaquil_button.disabled = false
+	totodile_button.disabled = false
 	
 	var container: Control
 	match selected_starter:
 		STARTERS.Chikorita:
 			container = chikorita_container
+			chikorita_button.disabled = true
 		STARTERS.Cyndaquil:
 			container = cyndaquil_container
+			cyndaquil_button.disabled = true
 		STARTERS.Totodile:
 			container = totodile_container
+			totodile_button.disabled = true
 
 	# Animate the selected Pokéball
 	animate_pokeball(container)
 
 
-func animate_pokeball(container: Control):
+func animate_pokeball(container: Control):	
 	# Store original position and rotation
 	var original_position = container.position
 	var original_rotation = container.rotation
@@ -141,5 +144,7 @@ func animate_pokeball(container: Control):
 func _on_start_button_clicked() -> void:
 	if selected_starter in [STARTERS.Chikorita, STARTERS.Cyndaquil, STARTERS.Totodile]:
 		print(selected_starter)
+		Global.starter_pokemon_id = selected_starter
+		get_tree().change_scene_to_file("res://screens/battle.tscn")
 	else:
 		print("illegal starter")

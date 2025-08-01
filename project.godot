@@ -11,13 +11,15 @@ config_version=5
 [application]
 
 config/name="InfinityLeague"
-run/main_scene="uid://dvq410jrv1uxu"
+run/main_scene="uid://bbnks4n0qux08"
 config/features=PackedStringArray("4.4", "GL Compatibility")
+boot_splash/bg_color=Color(0.0687983, 0.0687983, 0.0687982, 1)
 config/icon="res://icon.svg"
 
 [autoload]
 
 PokemonData="*res://scripts/dynamic_pokemon_loader.gd"
+Global="*res://scripts/global.gd"
 
 [display]
 
