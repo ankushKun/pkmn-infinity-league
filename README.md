@@ -38,4 +38,4 @@ Or will you become just another lost soul in this eternal tournament?
 
 The choice is yours, trainer.
 
-[PRESS START]()
+<iframe frameborder="0" src="https://itch.io/embed/3769921?linkback=true&amp;bg_color=1a1a1a&amp;fg_color=d0d0d0&amp;link_color=6c5fd7&amp;border_color=000000" width="552" height="167"><a href="https://weeblet.itch.io/pkmn-infinity-league">PKMN: Infinity League by weeblet (Ankush)</a></iframe>
