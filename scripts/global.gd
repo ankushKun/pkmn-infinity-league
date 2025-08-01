@@ -73,3 +73,8 @@ func calculate_pokemon_strength(pokemon: PokemonData.Pokemon) -> int:
 func increment_defeated_pokemon():
 	"""Increment the count of defeated Pokémon."""
 	defeated_pokemon_count += 1
+
+func reset_on_defeat():
+	"""Reset the defeated pokemon counter and encountered pokemons array when the player is defeated."""
+	defeated_pokemon_count = 0
+	encountered_pokemons.clear()
