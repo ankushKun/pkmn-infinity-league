@@ -95,6 +95,10 @@ func on_select():
 	$StarterPreview.texture = pokemon.texture.front
 	$StarterName.text = pokemon.name
 	
+	var moves = pokemon.moves
+	for move in moves:
+		print(move.name)
+	
 	var container: Control
 	match selected_starter:
 		STARTERS.Chikorita:
