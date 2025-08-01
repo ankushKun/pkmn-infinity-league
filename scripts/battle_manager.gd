@@ -13,6 +13,12 @@ var ColorGreen = Color(0.0, 1.0, 0.0, 1.0)
 var ColorYellow = Color(1.0, 1.0, 0.0, 1.0)
 var ColorRed = Color(1.0, 0.0, 0.0, 1.0)
 
+var attack_sounds = [
+	preload("res://sounds/attacks/1.mp3"),
+	preload("res://sounds/attacks/2.mp3"),
+	preload("res://sounds/attacks/3.mp3"),
+]
+
 var move_buttons: Array[Button] = []
 
 # Battle state
@@ -47,8 +53,61 @@ func _ready() -> void:
 		Global.add_encountered_pokemon(random_id)
 		set_active_pokemon(random_id)
 
+	# Start entrance animation
+	await play_entrance_animation()
+	await get_tree().create_timer(0.5).timeout
+
 	update_progress_text()
+	
+	
 	set_status("What will you do?")
+
+func play_entrance_animation() -> void:
+	"""Play entrance animation where player and enemy move in from the sides."""
+	# Store original positions
+	var player_original_position = $Player.position
+	var enemy_original_position = $Enemy.position
+	
+	# Set initial positions (off-screen)
+	$Player.position = player_original_position + Vector2(-500, 0) # Start from left
+	$Enemy.position = enemy_original_position + Vector2(500, 0) # Start from right
+	
+	# Create tween for smooth movement
+	var entrance_tween = create_tween()
+	entrance_tween.set_parallel(true)
+	
+	# Move player from left to original position (5 seconds)
+	entrance_tween.tween_property($Player, "position", player_original_position, 2)
+	
+	# Move enemy from right to original position (5 seconds)
+	entrance_tween.tween_property($Enemy, "position", enemy_original_position, 2)
+	
+	# Wait for animation to complete
+	await entrance_tween.finished
+
+func play_random_attack_sound():
+	var sound = attack_sounds[rng.randi() % attack_sounds.size()]
+	$Attack.stream = sound
+	$Attack.pitch_scale = rng.randf_range(0.8, 1.2)
+	$Attack.volume_db = rng.randf_range(-5, 5)
+	$Attack.play()
+
+func play_low_hp_sound(start: bool):
+	if start:
+		$LowHP.play()
+	else:
+		$LowHP.stop()
+
+func check_low_hp_sound():
+	"""Check if low HP sound should be played or stopped based on current HP."""
+	var player_hp_percent = float(ActivePokemonHP) / float(ActivePokemon.hp)
+	
+	# Play low HP sound when player HP is below 25%
+	if player_hp_percent <= 0.25 and ActivePokemonHP > 0:
+		play_low_hp_sound(true)
+	else:
+		play_low_hp_sound(false)
+
 
 func _process(delta: float) -> void:
 	pass
@@ -237,6 +296,9 @@ func update_hp_display():
 		$EnemyInfo/hpbar.get("theme_override_styles/fill").bg_color = ColorYellow
 	else:
 		$EnemyInfo/hpbar.get("theme_override_styles/fill").bg_color = ColorRed
+	
+	# Check for low HP sound
+	check_low_hp_sound()
 
 func animate_hp_bar(bar: ProgressBar, target_value: int, duration: float = 0.5):
 	"""Animate HP bar smoothly from current value to target value."""
@@ -478,6 +540,9 @@ func show_enemy():
 
 func play_faint_animation():
 	"""Play a faint animation when the player's Pokemon faints."""
+	# Stop low HP sound when Pokemon faints
+	play_low_hp_sound(false)
+	
 	# Store original properties
 	var original_position = $Player.position
 	var original_scale = $Player.scale
@@ -551,6 +616,9 @@ func execute_move(attacker: PokemonData.Pokemon, defender: PokemonData.Pokemon, 
 		await set_status(attacker_name + " used " + move.name + " but it missed!")
 		await get_tree().create_timer(1.5).timeout
 		return false
+	
+	# Play attack sound
+	play_random_attack_sound()
 	
 	# Calculate damage
 	var damage_result = calculate_damage(attacker, defender, move)
@@ -635,6 +703,9 @@ func execute_move(attacker: PokemonData.Pokemon, defender: PokemonData.Pokemon, 
 
 func end_battle():
 	"""End the battle and return to main menu."""
+	# Stop low HP sound when battle ends
+	play_low_hp_sound(false)
+	
 	if ActivePokemonHP <= 0:
 		await set_status("You lost the battle!")
 	else:

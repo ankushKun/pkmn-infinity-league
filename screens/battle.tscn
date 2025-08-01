@@ -1,10 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://d3ax0rltdokfl"]
+[gd_scene load_steps=17 format=3 uid="uid://d3ax0rltdokfl"]
 
 [ext_resource type="Script" uid="uid://emf34jxsr4gd" path="res://scripts/battle_manager.gd" id="1_7sayv"]
 [ext_resource type="Texture2D" uid="uid://ckwubj3wlxcui" path="res://assets/battle_bg.png" id="2_h4lnp"]
 [ext_resource type="Texture2D" uid="uid://2s44ie4ayudn" path="res://sprites/placeholders/6.png" id="3_0q410"]
 [ext_resource type="Texture2D" uid="uid://c36cstbtsjml4" path="res://sprites/placeholders/25.png" id="4_i8oke"]
 [ext_resource type="FontFile" uid="uid://b2r02ranjx5vy" path="res://fonts/Tiny5-Regular.ttf" id="5_i8oke"]
+[ext_resource type="AudioStream" uid="uid://b3q6skrpvp133" path="res://sounds/battle.mp3" id="6_rdcom"]
+[ext_resource type="AudioStream" uid="uid://deoe7cfp3yvau" path="res://sounds/low_hp.mp3" id="7_itvv8"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7sayv"]
 texture = ExtResource("2_h4lnp")
@@ -372,6 +374,16 @@ theme_override_fonts/font = ExtResource("5_i8oke")
 theme_override_font_sizes/font_size = 30
 text = "RESTART"
 flat = true
+
+[node name="BattleMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_rdcom")
+autoplay = true
+
+[node name="LowHP" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_itvv8")
+
+[node name="Attack" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_itvv8")
 
 [connection signal="button_up" from="Menu/Moves/1" to="." method="use_move_1"]
 [connection signal="button_up" from="Menu/Moves/2" to="." method="use_move_2"]

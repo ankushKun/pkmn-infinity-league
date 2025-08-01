@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bbnks4n0qux08"]
+[gd_scene load_steps=6 format=3 uid="uid://bbnks4n0qux08"]
 
 [ext_resource type="Script" uid="uid://c1r3c7sckydjr" path="res://scripts/lore_controller.gd" id="1_din1n"]
 [ext_resource type="Texture2D" uid="uid://bhyyavkylt3nf" path="res://assets/lore_bg.jpeg" id="1_psjci"]
 [ext_resource type="FontFile" uid="uid://b2r02ranjx5vy" path="res://fonts/Tiny5-Regular.ttf" id="3_jhcku"]
+[ext_resource type="AudioStream" uid="uid://das87hvo1vf6y" path="res://sounds/lore.mp3" id="4_bqhnw"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_din1n"]
 texture = ExtResource("1_psjci")
@@ -101,5 +102,9 @@ theme_override_fonts/font = ExtResource("3_jhcku")
 theme_override_font_sizes/font_size = 40
 text = "CONTINUE"
 flat = true
+
+[node name="BackgroundMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_bqhnw")
+autoplay = true
 
 [connection signal="button_up" from="Button" to="." method="_on_button_button_up"]

@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dvq410jrv1uxu"]
+[gd_scene load_steps=7 format=3 uid="uid://dvq410jrv1uxu"]
 
 [ext_resource type="Script" uid="uid://bjvlcg8prhymc" path="res://scripts/menu.gd" id="1_6b72x"]
 [ext_resource type="Texture2D" uid="uid://dq2h38bwyyxhj" path="res://sprites/poke-ball.png" id="2_0vcwn"]
 [ext_resource type="Texture2D" uid="uid://r7vbtjl6jqwy" path="res://assets/bg.png" id="2_6b72x"]
 [ext_resource type="FontFile" uid="uid://b2r02ranjx5vy" path="res://fonts/Tiny5-Regular.ttf" id="2_6flog"]
+[ext_resource type="AudioStream" uid="uid://dqji4e6uhbaop" path="res://sounds/adventure-begins.mp3" id="5_la406"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6flog"]
 texture = ExtResource("2_6b72x")
@@ -191,6 +192,10 @@ offset_bottom = 329.0
 grow_horizontal = 0
 expand_mode = 2
 stretch_mode = 6
+
+[node name="BackgroundMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_la406")
+autoplay = true
 
 [connection signal="button_down" from="ChikoritaContainer/Chikorita" to="." method="_on_chikorita_pressed"]
 [connection signal="button_down" from="CyndaquilContainer/Cyndaquil" to="." method="_on_cyndaquil_pressed"]
