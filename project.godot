@@ -10,11 +10,13 @@ config_version=5
 
 [application]
 
-config/name="InfinityLeague"
+config/name="Infinity League"
+config/version="2"
 run/main_scene="uid://bbnks4n0qux08"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 boot_splash/bg_color=Color(0.0687983, 0.0687983, 0.0687982, 1)
-config/icon="res://icon.svg"
+boot_splash/image="uid://bqxxvxji4i08k"
+config/icon="uid://dq2h38bwyyxhj"
 
 [autoload]
 
@@ -23,6 +25,7 @@ Global="*res://scripts/global.gd"
 
 [display]
 
+window/size/mode=3
 window/size/resizable=false
 window/size/sharp_corners=true
 window/stretch/mode="viewport"
