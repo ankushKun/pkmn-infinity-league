@@ -784,7 +784,7 @@ func play_enemy_attack_animation():
 
 func show_defeat_popup():
 	$Result.visible = true
-	$Result/Label.text = "You lost to " + EnemyPokemon.name + "!\nBeat " + str(Global.defeated_pokemon_count) + " / 251 Pokemon"
+	$Result/Label.text = "You lost to [color=red]" + EnemyPokemon.name + "[/color]!\nBeat [color=yellow]" + str(Global.defeated_pokemon_count) + "[/color] / 251 Pokemon"
 
 func _on_restart_pressed() -> void:
 	get_tree().change_scene_to_file("res://screens/main.tscn")

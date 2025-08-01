@@ -310,13 +310,15 @@ vertical_alignment = 1
 
 [node name="Progress" type="Label" parent="."]
 layout_mode = 1
-offset_left = 15.0
-offset_top = 8.0
-offset_right = 66.0
-offset_bottom = 43.0
-theme_override_colors/font_color = Color(1, 1, 1, 0.490196)
+offset_left = 18.0
+offset_top = 10.0
+offset_right = 69.0
+offset_bottom = 55.0
+theme_override_colors/font_color = Color(0.937255, 0.839216, 0.164706, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("5_i8oke")
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 40
 text = "5"
 vertical_alignment = 1
 
@@ -333,19 +335,20 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_juw2i")
 
-[node name="Label" type="Label" parent="Result"]
+[node name="Label" type="RichTextLabel" parent="Result"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_left = 29.0
-offset_top = 17.0
-offset_right = -29.0
-offset_bottom = 158.0
+offset_left = 28.0
+offset_top = 21.0
+offset_right = -22.0
+offset_bottom = 169.0
 grow_horizontal = 2
-theme_override_fonts/font = ExtResource("5_i8oke")
-theme_override_font_sizes/font_size = 40
-text = "You lost to Charizard
-Beat 5 / 252 Pokemon"
+theme_override_fonts/normal_font = ExtResource("5_i8oke")
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "You lost to [color=red] Charizard[/color]!
+Beat [color=yellow] 5[/color] / 251 Pokemon"
 horizontal_alignment = 1
 vertical_alignment = 1
 
