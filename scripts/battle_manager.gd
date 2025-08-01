@@ -27,6 +27,7 @@ var player_status_effect: String = "NONE"
 var enemy_status_effect: String = "NONE"
 
 func _ready() -> void:
+	$Result.visible = false
 	rng = RandomNumberGenerator.new()
 	rng.seed = Time.get_unix_time_from_system()
 	
@@ -45,6 +46,9 @@ func _ready() -> void:
 		var random_id = rng.randi() % 252 + 1
 		Global.add_encountered_pokemon(random_id)
 		set_active_pokemon(random_id)
+
+	update_progress_text()
+	set_status("What will you do?")
 
 func _process(delta: float) -> void:
 	pass
@@ -141,13 +145,29 @@ func calculate_move_score(move: PokemonData.Move, attacker: PokemonData.Pokemon,
 	
 	return score
 
+var is_displaying_status = false
+
+func update_progress_text():
+	"""Update the progress text to show number of defeated Pokémon."""
+	$Progress.text = str(Global.defeated_pokemon_count)
+
 func set_status(status: String):
 	"""Display status text character by character."""
+	# Wait for any existing status display to finish
+	while is_displaying_status:
+		await get_tree().create_timer(0.01).timeout
+	
+	is_displaying_status = true
+	
+	# Clear the text first
 	$Menu/Status.text = ""
-	var tween = create_tween()
+	
+	# Build the text character by character
 	for i in range(status.length()):
 		$Menu/Status.text += status[i]
-		await get_tree().create_timer(0.03) # 30ms delay between characters
+		await get_tree().create_timer(0.03).timeout # 50ms delay between characters
+	
+	is_displaying_status = false
 
 func set_active_pokemon(id: int):
 	ActivePokemon = PokemonData.get_pokemon(id)
@@ -365,16 +385,20 @@ func apply_random_status_effect(target: PokemonData.Pokemon, is_player: bool):
 	# Apply the status effect
 	if is_player:
 		enemy_status_effect = random_effect
-		set_status("Enemy " + target.name + " was " + random_effect.to_lower() + "ed!")
+		await set_status("Enemy " + target.name + " was " + random_effect.to_lower() + "ed!")
 	else:
 		player_status_effect = random_effect
-		set_status(target.name + " was " + random_effect.to_lower() + "ed!")
+		await set_status(target.name + " was " + random_effect.to_lower() + "ed!")
 	
 	await get_tree().create_timer(1.0).timeout
 
 func capture_enemy_pokemon():
 	"""Capture the defeated enemy Pokemon and make it the player's active Pokemon."""
-	set_status("You captured " + EnemyPokemon.name + "!")
+	# Increment defeated Pokémon count
+	Global.increment_defeated_pokemon()
+	update_progress_text()
+	
+	await set_status("You defeated " + EnemyPokemon.name + "!")
 	await get_tree().create_timer(1.5).timeout
 	
 	# Store original positions for animation
@@ -382,7 +406,7 @@ func capture_enemy_pokemon():
 	var enemy_original_position = $Enemy.position
 	
 	# Animation: Enemy moves to player position
-	set_status("Capturing " + EnemyPokemon.name + "...")
+	# set_status("Capturing " + EnemyPokemon.name + "...")
 	var capture_tween = create_tween()
 	capture_tween.tween_property($Enemy, "position", player_original_position, 0.8)
 	capture_tween.tween_callback(switch_pokemon_textures)
@@ -429,11 +453,12 @@ func capture_enemy_pokemon():
 	
 	update_hp_display()
 	
-	set_status("A new " + EnemyPokemon.name + " appeared!")
+	await set_status("A new " + EnemyPokemon.name + " appeared!")
 	await get_tree().create_timer(1.5).timeout
 	
 	# Re-enable move buttons and wait for user input
 	set_enabled(true)
+	await set_status("What will you do?")
 
 func switch_pokemon_textures():
 	"""Switch the Pokemon textures during capture animation."""
@@ -480,7 +505,7 @@ func apply_status_damage():
 		var poison_damage = int(ActivePokemon.hp * 0.125) # 12.5% max HP
 		var new_hp = max(0, ActivePokemonHP - poison_damage)
 		ActivePokemonHP = new_hp
-		set_status(ActivePokemon.name + " was hurt by poison!")
+		await set_status(ActivePokemon.name + " was hurt by poison!")
 		await animate_hp_bar($PlayerInfo/hpbar, new_hp)
 		update_hp_display()
 		await get_tree().create_timer(1.0).timeout
@@ -490,7 +515,7 @@ func apply_status_damage():
 		var burn_damage = int(ActivePokemon.hp * 0.0625) # 6.25% max HP
 		var new_hp = max(0, ActivePokemonHP - burn_damage)
 		ActivePokemonHP = new_hp
-		set_status(ActivePokemon.name + " was hurt by its burn!")
+		await set_status(ActivePokemon.name + " was hurt by its burn!")
 		await animate_hp_bar($PlayerInfo/hpbar, new_hp)
 		update_hp_display()
 		await get_tree().create_timer(1.0).timeout
@@ -499,7 +524,7 @@ func apply_status_damage():
 	if ActivePokemonHP <= 0:
 		ActivePokemonHP = 0
 		update_hp_display()
-		set_status(ActivePokemon.name + " fainted from status!")
+		await set_status(ActivePokemon.name + " fainted from status!")
 		battle_ended = true
 		await play_faint_animation()
 		await get_tree().create_timer(2.0).timeout
@@ -512,18 +537,18 @@ func execute_move(attacker: PokemonData.Pokemon, defender: PokemonData.Pokemon, 
 	
 	# Check status effects that prevent movement
 	if not is_player and player_status_effect == "SLEEP":
-		set_status(attacker_name + " is fast asleep!")
+		await set_status(attacker_name + " is fast asleep!")
 		await get_tree().create_timer(1.5).timeout
 		return false
 	elif not is_player and player_status_effect == "PARALYSIS":
 		if rng.randf() < 0.25: # 25% chance to be fully paralyzed
-			set_status(attacker_name + " is paralyzed and can't move!")
+			await set_status(attacker_name + " is paralyzed and can't move!")
 			await get_tree().create_timer(1.5).timeout
 			return false
 	
 	# Check accuracy
 	if not check_accuracy(move):
-		set_status(attacker_name + " used " + move.name + " but it missed!")
+		await set_status(attacker_name + " used " + move.name + " but it missed!")
 		await get_tree().create_timer(1.5).timeout
 		return false
 	
@@ -551,13 +576,13 @@ func execute_move(attacker: PokemonData.Pokemon, defender: PokemonData.Pokemon, 
 	
 	# Display move message
 	var move_message = attacker_name + " used " + move.name + "!"
-	set_status(move_message)
+	await set_status(move_message)
 	await get_tree().create_timer(1.0).timeout
 	
 	# Display effectiveness message
 	var effectiveness_msg = get_effectiveness_message(move.type, defender.type)
 	if effectiveness_msg != "":
-		set_status(effectiveness_msg)
+		await set_status(effectiveness_msg)
 		await get_tree().create_timer(1.0).timeout
 	
 	# Display damage message with additional info
@@ -574,7 +599,7 @@ func execute_move(attacker: PokemonData.Pokemon, defender: PokemonData.Pokemon, 
 		if is_critical:
 			damage_message += " (Critical hit!)"
 		
-		set_status(damage_message)
+		await set_status(damage_message)
 		await get_tree().create_timer(1.5).timeout
 	
 	# Check for status effect application
@@ -586,14 +611,16 @@ func execute_move(attacker: PokemonData.Pokemon, defender: PokemonData.Pokemon, 
 	if is_player and EnemyPokemonHP <= 0:
 		EnemyPokemonHP = 0
 		update_hp_display()
-		set_status("Enemy " + defender.name + " fainted!")
+		await set_status("Enemy " + defender.name + " fainted!")
 		defender_fainted = true
 		# Capture the enemy Pokemon
 		capture_enemy_pokemon()
+		# Return early to prevent further turn execution
+		return true
 	elif not is_player and ActivePokemonHP <= 0:
 		ActivePokemonHP = 0
 		update_hp_display()
-		set_status(defender.name + " fainted!")
+		await set_status(defender.name + " fainted!")
 		defender_fainted = true
 		battle_ended = true
 		# Play faint animation
@@ -609,12 +636,12 @@ func execute_move(attacker: PokemonData.Pokemon, defender: PokemonData.Pokemon, 
 func end_battle():
 	"""End the battle and return to main menu."""
 	if ActivePokemonHP <= 0:
-		set_status("You lost the battle!")
+		await set_status("You lost the battle!")
 	else:
-		set_status("You won the battle!")
+		await set_status("You won the battle!")
 	
 	await get_tree().create_timer(3.0).timeout
-	get_tree().change_scene_to_file("res://screens/main.tscn")
+	show_defeat_popup()
 
 # Move execution functions
 func use_move_1():
@@ -625,7 +652,11 @@ func use_move_1():
 	play_player_attack_animation()
 	
 	# Execute player move
-	await execute_move(ActivePokemon, EnemyPokemon, active_moves[0], true)
+	var move_result = await execute_move(ActivePokemon, EnemyPokemon, active_moves[0], true)
+	
+	# If enemy was defeated, return early to prevent further turn execution
+	if move_result and EnemyPokemonHP <= 0:
+		return
 	
 	if not battle_ended:
 		# Execute enemy move
@@ -638,6 +669,7 @@ func use_move_1():
 		await apply_status_damage()
 		# Re-enable buttons for next turn
 		set_enabled(true)
+		await set_status("What will you do?")
 
 func use_move_2():
 	if battle_ended or ActivePokemonHP <= 0:
@@ -647,7 +679,11 @@ func use_move_2():
 	play_player_attack_animation()
 	
 	# Execute player move
-	await execute_move(ActivePokemon, EnemyPokemon, active_moves[1], true)
+	var move_result = await execute_move(ActivePokemon, EnemyPokemon, active_moves[1], true)
+	
+	# If enemy was defeated, return early to prevent further turn execution
+	if move_result and EnemyPokemonHP <= 0:
+		return
 	
 	if not battle_ended:
 		# Execute enemy move
@@ -660,6 +696,7 @@ func use_move_2():
 		await apply_status_damage()
 		# Re-enable buttons for next turn
 		set_enabled(true)
+		await set_status("What will you do?")
 
 func use_move_3():
 	if battle_ended or ActivePokemonHP <= 0:
@@ -669,7 +706,11 @@ func use_move_3():
 	play_player_attack_animation()
 	
 	# Execute player move
-	await execute_move(ActivePokemon, EnemyPokemon, active_moves[2], true)
+	var move_result = await execute_move(ActivePokemon, EnemyPokemon, active_moves[2], true)
+	
+	# If enemy was defeated, return early to prevent further turn execution
+	if move_result and EnemyPokemonHP <= 0:
+		return
 	
 	if not battle_ended:
 		# Execute enemy move
@@ -682,6 +723,7 @@ func use_move_3():
 		await apply_status_damage()
 		# Re-enable buttons for next turn
 		set_enabled(true)
+		await set_status("What will you do?")
 
 func use_move_4():
 	if battle_ended or ActivePokemonHP <= 0:
@@ -691,7 +733,11 @@ func use_move_4():
 	play_player_attack_animation()
 	
 	# Execute player move
-	await execute_move(ActivePokemon, EnemyPokemon, active_moves[3], true)
+	var move_result = await execute_move(ActivePokemon, EnemyPokemon, active_moves[3], true)
+	
+	# If enemy was defeated, return early to prevent further turn execution
+	if move_result and EnemyPokemonHP <= 0:
+		return
 	
 	if not battle_ended:
 		# Execute enemy move
@@ -704,6 +750,7 @@ func use_move_4():
 		await apply_status_damage()
 		# Re-enable buttons for next turn
 		set_enabled(true)
+		await set_status("What will you do?")
 
 func play_player_attack_animation():
 	# Store original position
@@ -734,3 +781,10 @@ func play_enemy_attack_animation():
 	$Player.modulate = Color.WHITE
 	await get_tree().create_timer(0.1).timeout
 	$Player.modulate = player_original_modulate
+
+func show_defeat_popup():
+	$Result.visible = true
+	$Result/Label.text = "You lost to " + EnemyPokemon.name + "!\nBeat " + str(Global.defeated_pokemon_count) + " / 251 Pokemon"
+
+func _on_restart_pressed() -> void:
+	get_tree().change_scene_to_file("res://screens/main.tscn")

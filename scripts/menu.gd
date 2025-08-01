@@ -115,7 +115,7 @@ func on_select():
 	animate_pokeball(container)
 
 
-func animate_pokeball(container: Control):	
+func animate_pokeball(container: Control):
 	# Store original position and rotation
 	var original_position = container.position
 	var original_rotation = container.rotation

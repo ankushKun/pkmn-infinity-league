@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 
 PokemonData="*res://scripts/dynamic_pokemon_loader.gd"
 Global="*res://scripts/global.gd"
+Transition="*res://screens/transition.tscn"
 
 [display]
 

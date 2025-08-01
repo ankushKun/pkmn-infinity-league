@@ -1,6 +1,7 @@
 extends Node
 
 var starter_pokemon_id: int
+var defeated_pokemon_count: int = 0
 
 var encountered_pokemons: Array[int] = []
 
@@ -68,3 +69,7 @@ func calculate_pokemon_strength(pokemon: PokemonData.Pokemon) -> int:
 	"""Calculate a Pokemon's overall strength based on its stats."""
 	var total_stats = pokemon.hp + pokemon.attack + pokemon.defense + pokemon.speed
 	return total_stats
+
+func increment_defeated_pokemon():
+	"""Increment the count of defeated Pokémon."""
+	defeated_pokemon_count += 1
