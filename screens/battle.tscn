@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://d3ax0rltdokfl"]
+[gd_scene load_steps=21 format=3 uid="uid://d3ax0rltdokfl"]
 
 [ext_resource type="Script" uid="uid://emf34jxsr4gd" path="res://scripts/battle_manager.gd" id="1_7sayv"]
 [ext_resource type="Texture2D" uid="uid://ckwubj3wlxcui" path="res://assets/battle_bg.png" id="2_h4lnp"]
@@ -7,6 +7,8 @@
 [ext_resource type="FontFile" uid="uid://b2r02ranjx5vy" path="res://fonts/Tiny5-Regular.ttf" id="5_i8oke"]
 [ext_resource type="AudioStream" uid="uid://b3q6skrpvp133" path="res://sounds/battle.mp3" id="6_rdcom"]
 [ext_resource type="AudioStream" uid="uid://deoe7cfp3yvau" path="res://sounds/low_hp.mp3" id="7_itvv8"]
+[ext_resource type="AudioStream" uid="uid://vmop7mvtuekl" path="res://sounds/heal.wav" id="8_ijmtw"]
+[ext_resource type="AudioStream" uid="uid://b4t03vrc13o11" path="res://sounds/faint.wav" id="9_2xoce"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7sayv"]
 texture = ExtResource("2_h4lnp")
@@ -390,6 +392,12 @@ volume_db = 10.0
 
 [node name="Attack" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_itvv8")
+
+[node name="Heal" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_ijmtw")
+
+[node name="Faint" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_2xoce")
 
 [node name="IntroTransition" type="GridContainer" parent="."]
 visible = false

@@ -128,9 +128,17 @@ func play_random_attack_sound():
 
 func play_low_hp_sound(start: bool):
 	if start:
-		$LowHP.play()
+		if not $LowHP.playing:
+			$LowHP.play()
 	else:
 		$LowHP.stop()
+
+func play_faint_sound():
+	$Faint.play()
+
+func play_heal_sound():
+	if not $Heal.playing:
+		$Heal.play()
 
 func check_low_hp_sound():
 	"""Check if low HP sound should be played or stopped based on current HP."""
@@ -528,6 +536,7 @@ func capture_enemy_pokemon():
 	$PlayerInfo/hpbar.max_value = ActivePokemon.hp
 	$EnemyInfo/hpbar.max_value = EnemyPokemon.hp
 	
+	play_heal_sound()
 	# Animate both HP bars to full
 	await animate_hp_bar($PlayerInfo/hpbar, ActivePokemonHP)
 	await animate_hp_bar($EnemyInfo/hpbar, EnemyPokemonHP)
@@ -576,6 +585,9 @@ func play_faint_animation():
 	"""Play a faint animation when the player's Pokemon faints."""
 	# Stop low HP sound when Pokemon faints
 	play_low_hp_sound(false)
+
+	# Play a faint sound
+	play_faint_sound()
 	
 	# Store original properties
 	var original_position = $Player.position
