@@ -136,13 +136,46 @@ func get_weather_damage_multiplier(move_type: PokemonData.TYPES) -> float:
 		_:
 			return 1.0
 
+func get_best_type_matchup(attacker_moves: Array[PokemonData.Move], defender_type: PokemonData.TYPES) -> PokemonData.Move:
+	"""Find the best move based on type effectiveness against the defender."""
+	var best_move = attacker_moves[0]
+	var best_multiplier = 1.0
+	
+	for move in attacker_moves:
+		var multiplier = PokemonData.get_type_effectiveness(move.type, defender_type)
+		if multiplier > best_multiplier:
+			best_multiplier = multiplier
+			best_move = move
+	
+	return best_move
+
+func get_type_advantage_score(attacker_type: PokemonData.TYPES, defender_type: PokemonData.TYPES) -> float:
+	"""Calculate how advantageous the attacker's type is against the defender."""
+	var multiplier = PokemonData.get_type_effectiveness(attacker_type, defender_type)
+	
+	# Convert multiplier to a score (1.25x = 25% advantage, 0.8x = 20% disadvantage)
+	if multiplier > 1.0:
+		return (multiplier - 1.0) * 100 # Convert to percentage advantage
+	elif multiplier < 1.0:
+		return (multiplier - 1.0) * 100 # Convert to percentage disadvantage
+	else:
+		return 0.0
+
 func get_smart_enemy_move(enemy_pokemon: PokemonData.Pokemon, player_pokemon: PokemonData.Pokemon, enemy_moves: Array[PokemonData.Move]) -> PokemonData.Move:
-	"""AI to choose the best move for the enemy."""
+	"""AI to choose the best move for the enemy using the new type system."""
 	var best_move = enemy_moves[0]
 	var best_score = 0.0
 	
 	for move in enemy_moves:
 		var score = calculate_move_score(move, enemy_pokemon, player_pokemon)
+		
+		# Add bonus for moves that are super effective
+		var type_multiplier = PokemonData.get_type_effectiveness(move.type, player_pokemon.type)
+		if type_multiplier > 1.0:
+			score += 30 # Extra bonus for super effective moves
+		elif type_multiplier < 1.0:
+			score -= 15 # Extra penalty for not very effective moves
+		
 		if score > best_score:
 			best_score = score
 			best_move = move
@@ -154,20 +187,18 @@ func get_smart_enemy_move(enemy_pokemon: PokemonData.Pokemon, player_pokemon: Po
 	return best_move
 
 func calculate_move_score(move: PokemonData.Move, attacker: PokemonData.Pokemon, defender: PokemonData.Pokemon) -> float:
-	"""Calculate how good a move is against the defender."""
+	"""Calculate how good a move is against the defender using the new type system."""
 	var score = 0.0
 	
 	# Base score from move power
 	score += move.damage * 0.1
 	
-	# Type effectiveness bonus
-	var type_multiplier = 1.0
-	if PokemonData.TypeIsStrongAgainst(move.type, defender.type):
-		type_multiplier = 2.0
-		score += 50 # Big bonus for super effective moves
-	elif PokemonData.TypeIsWeakAgainst(move.type, defender.type):
-		type_multiplier = 0.5
-		score -= 20 # Penalty for not very effective moves
+	# Type effectiveness bonus using the new system
+	var type_multiplier = PokemonData.get_type_effectiveness(move.type, defender.type)
+	if type_multiplier > 1.0:
+		score += 50 # Big bonus for super effective moves (1.25x)
+	elif type_multiplier < 1.0:
+		score -= 20 # Penalty for not very effective moves (0.8x)
 	
 	# STAB bonus
 	if move.type == attacker.type:
@@ -202,7 +233,7 @@ func can_inflict_status(status: STATUS_EFFECTS, target_type: PokemonData.TYPES) 
 	"""Check if status can be inflicted on target type."""
 	match status:
 		STATUS_EFFECTS.POISON:
-			return target_type != PokemonData.TYPES.STEEL
+			return target_type != PokemonData.TYPES.STEEL and target_type != PokemonData.TYPES.FAIRY
 		STATUS_EFFECTS.BURN:
 			return target_type != PokemonData.TYPES.FIRE
 		STATUS_EFFECTS.PARALYSIS:

@@ -356,13 +356,8 @@ func set_enabled(enable: bool):
 # Battle Mechanics Functions
 
 func calculate_type_effectiveness(attack_type: PokemonData.TYPES, defender_type: PokemonData.TYPES) -> float:
-	"""Calculate type effectiveness multiplier."""
-	if PokemonData.TypeIsStrongAgainst(attack_type, defender_type):
-		return 2.0 # Super effective
-	elif PokemonData.TypeIsWeakAgainst(attack_type, defender_type):
-		return 0.5 # Not very effective
-	else:
-		return 1.0 # Normal effectiveness
+	"""Calculate type effectiveness multiplier using the comprehensive chart."""
+	return PokemonData.get_type_effectiveness(attack_type, defender_type)
 
 func calculate_damage(attacker: PokemonData.Pokemon, defender: PokemonData.Pokemon, move: PokemonData.Move) -> Dictionary:
 	"""Calculate damage using an improved Pokemon damage formula for balanced battles."""
@@ -436,12 +431,54 @@ func apply_damage(target_hp: int, damage: int) -> int:
 	"""Apply damage and return new HP."""
 	return max(0, target_hp - damage)
 
+func show_move_effectiveness_info(move: PokemonData.Move, defender_type: PokemonData.TYPES):
+	"""Show type effectiveness information for a move."""
+	var multiplier = PokemonData.get_type_effectiveness(move.type, defender_type)
+	
+	var effectiveness_msg = ""
+	if multiplier > 1.0:
+		effectiveness_msg = "It's super effective!"
+	elif multiplier < 1.0:
+		effectiveness_msg = "It's not very effective..."
+	# Don't show anything for normal effectiveness (multiplier == 1.0)
+	
+	if effectiveness_msg != "":
+		await set_status(effectiveness_msg)
+		await get_tree().create_timer(1.0).timeout
+
+func get_move_effectiveness_hint(move: PokemonData.Move, defender_type: PokemonData.TYPES) -> String:
+	"""Get a hint about move effectiveness for strategic play."""
+	var multiplier = PokemonData.get_type_effectiveness(move.type, defender_type)
+	
+	if multiplier > 1.0:
+		return "This move is super effective!"
+	elif multiplier < 1.0:
+		return "This move is not very effective..."
+	else:
+		return "" # Don't show anything for normal effectiveness
+
+func get_detailed_effectiveness_info(move_type: PokemonData.TYPES, defender_type: PokemonData.TYPES) -> String:
+	"""Get detailed type effectiveness information for display."""
+	var multiplier = PokemonData.get_type_effectiveness(move_type, defender_type)
+	
+	var info = ""
+	if multiplier > 1.0:
+		info = "Super effective"
+	elif multiplier < 1.0:
+		info = "Not very effective"
+	# Don't show anything for normal effectiveness (multiplier == 1.0)
+	
+	return info
+
 func get_effectiveness_message(move_type: PokemonData.TYPES, defender_type: PokemonData.TYPES) -> String:
-	"""Get the effectiveness message for display."""
-	if PokemonData.TypeIsStrongAgainst(move_type, defender_type):
-		return "It's super effective!"
-	elif PokemonData.TypeIsWeakAgainst(move_type, defender_type):
-		return "It's not very effective..."
+	"""Get the effectiveness message for display using the new type system."""
+	var multiplier = PokemonData.get_type_effectiveness(move_type, defender_type)
+	var description = PokemonData.get_effectiveness_description(multiplier)
+	
+	if multiplier > 1.0:
+		return "It's " + description + "!"
+	elif multiplier < 1.0:
+		return "It's " + description + "..."
 	else:
 		return ""
 
@@ -464,7 +501,8 @@ func get_type_name(type_enum: PokemonData.TYPES) -> String:
 		PokemonData.TYPES.GHOST: "Ghost",
 		PokemonData.TYPES.DRAGON: "Dragon",
 		PokemonData.TYPES.DARK: "Dark",
-		PokemonData.TYPES.STEEL: "Steel"
+		PokemonData.TYPES.STEEL: "Steel",
+		PokemonData.TYPES.FAIRY: "Fairy"
 	}
 	return type_names.get(type_enum, "Normal")
 
@@ -477,7 +515,7 @@ func apply_random_status_effect(target: PokemonData.Pokemon, is_player: bool):
 	var is_immune = false
 	match random_effect:
 		"POISON":
-			is_immune = (target.type == PokemonData.TYPES.STEEL)
+			is_immune = (target.type == PokemonData.TYPES.STEEL or target.type == PokemonData.TYPES.FAIRY)
 		"BURN":
 			is_immune = (target.type == PokemonData.TYPES.FIRE)
 		"PARALYSIS":
@@ -703,7 +741,7 @@ func execute_move(attacker: PokemonData.Pokemon, defender: PokemonData.Pokemon, 
 	if damage > 0:
 		var damage_message = "It dealt " + str(damage) + " damage!"
 		
-		# Add effectiveness info
+		# Add effectiveness info without multiplier values
 		if type_multiplier > 1.0:
 			damage_message += " (Super effective!)"
 		elif type_multiplier < 1.0:
