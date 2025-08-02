@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Infinity League"
+config/description="Infinite battles, survive or give up"
 config/version="2"
 run/main_scene="uid://bbnks4n0qux08"
 config/features=PackedStringArray("4.4", "GL Compatibility")
@@ -34,6 +35,8 @@ window/stretch/scale_mode="integer"
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
+environment/defaults/default_clear_color=Color(0.133196, 0.133196, 0.133196, 1)
