@@ -1,10 +1,16 @@
 extends Node
 
+@onready var IntroTransitionGrid: GridContainer = $IntroTransition
+
 var ActivePokemonHP: int = 0
 var EnemyPokemonHP: int = 0
 
 var ActivePokemon: PokemonData.Pokemon
 var EnemyPokemon: PokemonData.Pokemon
+
+# Store original positions
+@onready var player_original_position = $Player.position
+@onready var enemy_original_position = $Enemy.position
 
 var active_moves: Array[PokemonData.Move] = []
 var enemy_moves: Array[PokemonData.Move] = []
@@ -53,8 +59,13 @@ func _ready() -> void:
 		Global.add_encountered_pokemon(random_id)
 		set_active_pokemon(random_id)
 
+	play_entrance_animation(false)
+		
+	# Start with circular panel visibility animation
+	await animate_panels_circular()
+
 	# Start entrance animation
-	await play_entrance_animation()
+	await play_entrance_animation(true)
 	await get_tree().create_timer(0.5).timeout
 
 	update_progress_text()
@@ -62,15 +73,38 @@ func _ready() -> void:
 	
 	set_status("What will you do?")
 
-func play_entrance_animation() -> void:
+func animate_panels_circular() -> void:
+	"""Animate panels in a wave pattern from top-left to bottom-right, setting visibility to false."""
+	
+	IntroTransitionGrid.visible = true
+	# Create the specific order based on the visual pattern
+	# The pattern appears to be a wave that starts from top-left and moves diagonally
+	var panel_order = [39, 40, 51, 50, 49, 38, 27, 28, 29, 30, 41, 52, 63, 62, 61, 60, 59, 48, 37, 26, 15, 16, 17, 18, 19, 20, 31, 42, 53, 64, 75, 74, 73, 72, 71, 70, 69, 58, 47, 36, 25, 14, 3, 4, 5, 6, 7, 8, 9, 10, 21, 32, 43, 54, 65, 76, 68, 57, 46, 35, 24, 13, 2, 11, 22, 33, 44, 55, 66, 77, 67, 56, 45, 34, 23, 12, 1]
+
+	
+	# Animate panels in the specific order
+	for panel_index in panel_order:
+		var panel = IntroTransitionGrid.get_child(panel_index - 1)
+		
+		if panel:
+			# panel.visible = false
+			var style = StyleBoxFlat.new()
+			style.set("bg_color", Color(0, 0, 0, 0))
+			panel.set("theme_override_styles/panel", style)
+			
+			# Small delay between each panel for smooth animation
+			await get_tree().create_timer(0.025).timeout # 25ms delay
+	IntroTransitionGrid.visible = false
+
+func play_entrance_animation(full: bool) -> void:
 	"""Play entrance animation where player and enemy move in from the sides."""
-	# Store original positions
-	var player_original_position = $Player.position
-	var enemy_original_position = $Enemy.position
 	
 	# Set initial positions (off-screen)
 	$Player.position = player_original_position + Vector2(-500, 0) # Start from left
 	$Enemy.position = enemy_original_position + Vector2(500, 0) # Start from right
+
+	if not full:
+		return
 	
 	# Create tween for smooth movement
 	var entrance_tween = create_tween()
@@ -860,4 +894,5 @@ func show_defeat_popup():
 	Global.reset_on_defeat()
 
 func _on_restart_pressed() -> void:
-	get_tree().change_scene_to_file("res://screens/main.tscn")
+	# get_tree().change_scene_to_file("res://screens/main.tscn")
+	Transition.change_scene("res://screens/main.tscn", "swipe")

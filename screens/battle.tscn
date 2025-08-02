@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://d3ax0rltdokfl"]
+[gd_scene load_steps=19 format=3 uid="uid://d3ax0rltdokfl"]
 
 [ext_resource type="Script" uid="uid://emf34jxsr4gd" path="res://scripts/battle_manager.gd" id="1_7sayv"]
 [ext_resource type="Texture2D" uid="uid://ckwubj3wlxcui" path="res://assets/battle_bg.png" id="2_h4lnp"]
@@ -79,6 +79,12 @@ corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nxux2"]
+bg_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5e1lk"]
+bg_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
+
 [node name="Battle" type="Control"]
 texture_filter = 1
 layout_mode = 3
@@ -108,9 +114,9 @@ anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -593.0
-offset_top = -31.0
+offset_top = 13.0
 offset_right = -139.0
-offset_bottom = 423.0
+offset_bottom = 467.0
 grow_horizontal = 0
 texture = ExtResource("3_0q410")
 
@@ -380,9 +386,485 @@ autoplay = true
 
 [node name="LowHP" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_itvv8")
+volume_db = 10.0
 
 [node name="Attack" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_itvv8")
+
+[node name="IntroTransition" type="GridContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 11
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel2" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel3" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel4" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel5" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel6" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel7" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel8" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel9" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel10" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel11" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel12" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel13" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel14" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel15" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel16" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel17" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel18" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel19" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel20" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel21" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel22" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel23" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel24" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel25" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel26" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel27" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel28" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel29" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel30" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel31" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel32" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel33" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel34" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel35" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_5e1lk")
+
+[node name="Panel36" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel37" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel38" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel39" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel40" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel41" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel42" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel43" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel44" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel45" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel46" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel47" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel48" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel49" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel50" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel51" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel52" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel53" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel54" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel55" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel56" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel57" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel58" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel59" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel60" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel61" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel62" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel63" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel64" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel65" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel66" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel67" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel68" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel69" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel70" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel71" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel72" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel73" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel74" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel75" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel76" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
+
+[node name="Panel77" type="Panel" parent="IntroTransition"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
 
 [connection signal="button_up" from="Menu/Moves/1" to="." method="use_move_1"]
 [connection signal="button_up" from="Menu/Moves/2" to="." method="use_move_2"]

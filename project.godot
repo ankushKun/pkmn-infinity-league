@@ -22,10 +22,10 @@ config/icon="uid://dq2h38bwyyxhj"
 
 PokemonData="*res://scripts/dynamic_pokemon_loader.gd"
 Global="*res://scripts/global.gd"
+Transition="*res://screens/transition.tscn"
 
 [display]
 
-window/size/mode=3
 window/size/resizable=false
 window/size/sharp_corners=true
 window/stretch/mode="viewport"

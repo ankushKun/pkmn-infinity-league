@@ -1,0 +1,161 @@
+[gd_scene load_steps=19 format=3 uid="uid://70rihl5apfej"]
+
+[ext_resource type="Script" uid="uid://dof7eio5p8aus" path="res://scripts/transition.gd" id="1_8jped"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pibxv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8jped"]
+bg_color = Color(0.066755, 0.066755, 0.066755, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8jped"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r2rjc"]
+bg_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r2rjc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k1ur5"]
+bg_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k1ur5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ns2f6"]
+bg_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ns2f6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_alay8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pibxv"]
+bg_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tqq16"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_alay8"]
+bg_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tk13d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tqq16"]
+bg_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uqyro"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tk13d"]
+bg_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
+
+[node name="Transition" type="Control"]
+z_index = 20
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_8jped")
+
+[node name="Swipe" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_pibxv")
+
+[node name="Right" type="VBoxContainer" parent="Swipe"]
+layout_mode = 0
+offset_left = 704.0
+offset_right = 1856.0
+offset_bottom = 648.0
+theme_override_constants/separation = -5
+alignment = 1
+
+[node name="Panel" type="Panel" parent="Swipe/Right"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_8jped")
+
+[node name="Panel2" type="Panel" parent="Swipe/Right"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_8jped")
+
+[node name="Panel3" type="Panel" parent="Swipe/Right"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_r2rjc")
+
+[node name="Panel4" type="Panel" parent="Swipe/Right"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_r2rjc")
+
+[node name="Panel5" type="Panel" parent="Swipe/Right"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_k1ur5")
+
+[node name="Panel6" type="Panel" parent="Swipe/Right"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_k1ur5")
+
+[node name="Panel7" type="Panel" parent="Swipe/Right"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ns2f6")
+
+[node name="Panel8" type="Panel" parent="Swipe/Right"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ns2f6")
+
+[node name="Left" type="VBoxContainer" parent="Swipe"]
+layout_mode = 0
+offset_left = -648.0
+offset_right = 504.0
+offset_bottom = 648.0
+theme_override_constants/separation = -5
+
+[node name="Panel" type="Panel" parent="Swipe/Left"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_alay8")
+
+[node name="Panel2" type="Panel" parent="Swipe/Left"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_pibxv")
+
+[node name="Panel3" type="Panel" parent="Swipe/Left"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_tqq16")
+
+[node name="Panel4" type="Panel" parent="Swipe/Left"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_alay8")
+
+[node name="Panel5" type="Panel" parent="Swipe/Left"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_tk13d")
+
+[node name="Panel6" type="Panel" parent="Swipe/Left"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_tqq16")
+
+[node name="Panel7" type="Panel" parent="Swipe/Left"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_uqyro")
+
+[node name="Panel8" type="Panel" parent="Swipe/Left"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_tk13d")

@@ -119,4 +119,5 @@ func _handle_text_animation(delta: float) -> void:
 
 func _on_button_button_up() -> void:
 	# start menu screen
-	get_tree().change_scene_to_file("res://screens/main.tscn")
+	# get_tree().change_scene_to_file("res://screens/main.tscn")
+	Transition.change_scene("res://screens/main.tscn", "swipe")
