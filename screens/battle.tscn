@@ -1,14 +1,16 @@
-[gd_scene load_steps=21 format=3 uid="uid://d3ax0rltdokfl"]
+[gd_scene load_steps=26 format=3 uid="uid://d3ax0rltdokfl"]
 
 [ext_resource type="Script" uid="uid://emf34jxsr4gd" path="res://scripts/battle_manager.gd" id="1_7sayv"]
 [ext_resource type="Texture2D" uid="uid://ckwubj3wlxcui" path="res://assets/battle_bg.png" id="2_h4lnp"]
 [ext_resource type="Texture2D" uid="uid://2s44ie4ayudn" path="res://sprites/placeholders/6.png" id="3_0q410"]
 [ext_resource type="Texture2D" uid="uid://c36cstbtsjml4" path="res://sprites/placeholders/25.png" id="4_i8oke"]
 [ext_resource type="FontFile" uid="uid://b2r02ranjx5vy" path="res://fonts/Tiny5-Regular.ttf" id="5_i8oke"]
+[ext_resource type="Texture2D" uid="uid://dq2h38bwyyxhj" path="res://sprites/poke-ball.png" id="6_of853"]
 [ext_resource type="AudioStream" uid="uid://b3q6skrpvp133" path="res://sounds/battle.mp3" id="6_rdcom"]
 [ext_resource type="AudioStream" uid="uid://deoe7cfp3yvau" path="res://sounds/low_hp.mp3" id="7_itvv8"]
 [ext_resource type="AudioStream" uid="uid://vmop7mvtuekl" path="res://sounds/heal.wav" id="8_ijmtw"]
 [ext_resource type="AudioStream" uid="uid://b4t03vrc13o11" path="res://sounds/faint.wav" id="9_2xoce"]
+[ext_resource type="Shader" uid="uid://bvsehejehdblo" path="res://shaders/grayscale.gdshader" id="10_ga2ow"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7sayv"]
 texture = ExtResource("2_h4lnp")
@@ -86,6 +88,15 @@ bg_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5e1lk"]
 bg_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dprpa"]
+bg_color = Color(0.133333, 0.133333, 0.133333, 0.956863)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gfgft"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_of853"]
+shader = ExtResource("10_ga2ow")
 
 [node name="Battle" type="Control"]
 texture_filter = 1
@@ -210,6 +221,21 @@ focus_mode = 0
 theme_override_fonts/font = ExtResource("5_i8oke")
 theme_override_font_sizes/font_size = 35
 text = "ATTACK"
+
+[node name="Pokedex" type="Button" parent="Menu"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -531.0
+offset_top = -58.0
+offset_right = -465.0
+offset_bottom = 8.0
+grow_horizontal = 0
+icon = ExtResource("6_of853")
+flat = true
+icon_alignment = 1
+expand_icon = true
 
 [node name="EnemyInfo" type="Panel" parent="."]
 layout_mode = 1
@@ -874,8 +900,117 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_nxux2")
 
+[node name="Pokedex" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 267.0
+offset_top = 23.0
+offset_right = -267.0
+offset_bottom = -23.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dprpa")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Pokedex"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_right = -315.0
+offset_bottom = 66.0
+grow_horizontal = 2
+theme_override_fonts/normal_font = ExtResource("5_i8oke")
+theme_override_font_sizes/normal_font_size = 40
+text = "POKEDEX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Counter" type="RichTextLabel" parent="Pokedex"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 291.0
+offset_top = 1.0
+offset_right = -64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+theme_override_fonts/normal_font = ExtResource("5_i8oke")
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "1 / 251"
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Pokedex"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 66.0
+offset_right = -8.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="Pokedex/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 5
+
+[node name="Pokemon" type="Panel" parent="Pokedex/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 121)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gfgft")
+
+[node name="TextureRect" type="TextureRect" parent="Pokedex/ScrollContainer/GridContainer/Pokemon"]
+material = SubResource("ShaderMaterial_of853")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_0q410")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Pokedex/ScrollContainer/GridContainer/Pokemon"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/normal_font = ExtResource("5_i8oke")
+theme_override_font_sizes/normal_font_size = 15
+text = "CHARIZARD"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Close" type="Button" parent="Pokedex"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -51.0
+offset_top = 11.0
+offset_right = -8.0
+offset_bottom = 54.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("5_i8oke")
+theme_override_font_sizes/font_size = 30
+text = "x"
+flat = true
+
 [connection signal="button_up" from="Menu/Moves/1" to="." method="use_move_1"]
 [connection signal="button_up" from="Menu/Moves/2" to="." method="use_move_2"]
 [connection signal="button_up" from="Menu/Moves/3" to="." method="use_move_3"]
 [connection signal="button_up" from="Menu/Moves/4" to="." method="use_move_4"]
+[connection signal="button_down" from="Menu/Pokedex" to="." method="_on_pokedex_button_down"]
 [connection signal="button_up" from="Result/Button" to="." method="_on_restart_pressed"]
+[connection signal="button_down" from="Pokedex/Close" to="." method="_on_close_button_down"]

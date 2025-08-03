@@ -1,6 +1,8 @@
 extends Node
 
 @onready var IntroTransitionGrid: GridContainer = $IntroTransition
+@onready var PokedexContainer: Panel = $Pokedex
+@onready var PokemonGrid: GridContainer = $Pokedex/ScrollContainer/GridContainer
 
 var ActivePokemonHP: int = 0
 var EnemyPokemonHP: int = 0
@@ -42,6 +44,8 @@ func _ready() -> void:
 	$Result.visible = false
 	rng = RandomNumberGenerator.new()
 	rng.seed = Time.get_unix_time_from_system()
+	populate_pokedex()
+	_on_close_button_down()
 	
 	move_buttons = [
 		$"Menu/Moves/1",
@@ -70,8 +74,31 @@ func _ready() -> void:
 
 	update_progress_text()
 	
-	
 	set_status("What will you do?")
+
+func populate_pokedex():
+	$Pokedex/Counter.text = "" + str(Global.defeated_pokemon_count) + " / 251"
+
+	var all_pokemon = PokemonData.get_all_pokemon()
+	var default = PokemonGrid.get_child(0).duplicate()
+	
+	var children = PokemonGrid.get_children()
+	for child in children:
+		PokemonGrid.remove_child(child)
+		child.queue_free()
+	
+	for pokemon_id in all_pokemon:
+		var pokemon: PokemonData.Pokemon = all_pokemon[pokemon_id]
+		var template = default.duplicate()
+		var texture = template.get_child(0)
+		texture.texture = pokemon.texture.front
+#		If we have not encountered this pokemon before, set texture to black and white
+		if Global.has_defeated_pokemon(pokemon_id):
+			texture.material = null
+		var label = template.get_child(1)
+		label.text = pokemon.name
+		PokemonGrid.add_child(template)
+	PokemonGrid.remove_child(default)
 
 func animate_panels_circular() -> void:
 	"""Animate panels in a wave pattern from top-left to bottom-right, setting visibility to false."""
@@ -946,3 +973,12 @@ func show_defeat_popup():
 func _on_restart_pressed() -> void:
 	# get_tree().change_scene_to_file("res://screens/main.tscn")
 	Transition.change_scene("res://screens/main.tscn", "swipe")
+
+
+func _on_close_button_down() -> void:
+	$Pokedex.visible = false
+
+
+func _on_pokedex_button_down() -> void:
+	$Pokedex.visible = true
+	populate_pokedex()

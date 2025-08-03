@@ -1,7 +1,7 @@
 extends Node
 
 var starter_pokemon_id: int
-var defeated_pokemon_count: int = 0
+var defeated_pokemon_count: int = 1
 
 var encountered_pokemons: Array[int] = []
 
@@ -10,6 +10,11 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	pass
+
+func has_defeated_pokemon(pokemon_id: int) -> bool:
+	"""Check if a Pokemon ID has been encountered."""
+	# ignore the last id in the list because we have not defeated it yet
+	return encountered_pokemons.slice(0, -1).has(pokemon_id)
 
 func add_encountered_pokemon(pokemon_id: int):
 	"""Add a Pokemon ID to the encountered list if not already present."""
